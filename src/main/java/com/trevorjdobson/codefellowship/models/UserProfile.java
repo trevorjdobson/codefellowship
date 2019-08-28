@@ -5,11 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class UserProfile implements UserDetails {
@@ -26,8 +24,14 @@ public class UserProfile implements UserDetails {
     String lastName;
     String bio;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userProfile")
+    List<Post> posts;
 
-    public UserProfile(String username,String password,String firstName,String lastName,String bio){
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public UserProfile(String username, String password, String firstName, String lastName, String bio){
 
         this.username = username;
         this.password = password;
