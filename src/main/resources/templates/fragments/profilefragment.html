@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <div th:fragment="profilefragment">
+    <h2>First Name: <span th:text="${user.firstName}"></span></h2>
+    <h2>Last Name: <span th:text="${user.lastName}"></span></h2>
+    <h2>Bio</h2>
+    <span th:text="${user.bio}"></span>
+    </div>
+
+    <div th:fragment="nav">
+        <h1>The Fellowship</h1>
+        <nav th:if="${user}">
+            <h2 th:text="${user.username}"></h2>
+            <a href="/logout">LogOut</a>
+        </nav>
+        <nav th:unless="${user}">
+            <a href="/login">Login</a>
+            <a href="/signup">signup</a>
+        </nav>
+    </div>
+
+<!--    <div th:fragment="post(post)">-->
+<!--        <h2 th:text="${post.getTimeStamp}"></h2>-->
+<!--        <p th:text="${post.getBody}"></p>-->
+<!--    </div>-->
+<!--    <div th:fragment="post">-->
+<!--        <h2>TimeStamp</h2>-->
+<!--        <p>This is the body, let the bodies hit the floor</p>-->
+<!--    </div>-->
+
+</html>

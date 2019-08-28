@@ -5,10 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+<div th:replace="fragments/profilefragment :: nav"></div>
     <h1>Welcome back <span th:text="${user.username}"></span></h1>
-    <h2>First Name: <span th:text="${user.firstName}"></span></h2>
-    <h2>Last Name: <span th:text="${user.lastName}"></span></h2>
-    <h2>Bio</h2>
-    <span th:text="${user.bio}"></span>
+    <div th:replace="fragments/profilefragment :: profilefragment"></div>
+<!--    <div th:replace="fragments/profilefragment :: post"></div>-->
+    <form method="POST" action="/post">
+        <label for="body"> Body: </label><input name="body" id="body" />
+
+        <input type="submit" />
+    </form>
+<!--    <div th:each="post: ${user.posts}" th:replace="fragments/profilefragment :: post(post='post')"></div>-->
+    <div th:if="${!user.posts.isEmpty()}" th:each="post : ${user.posts}">
+        <h2 th:text="${post.timeStamp}"></h2>
+        <p th:text="${post.body}"></p>
+    </div>
 </body>
 </html>
