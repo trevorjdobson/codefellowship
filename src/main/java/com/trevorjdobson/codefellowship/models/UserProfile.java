@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class UserProfile implements UserDetails {
@@ -27,8 +28,30 @@ public class UserProfile implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userProfile")
     List<Post> posts;
 
+    @ManyToMany
+    @JoinTable(
+            name="friends",
+            joinColumns = { @JoinColumn(name="follower") },
+            inverseJoinColumns = {@JoinColumn(name="followee")}
+        )
+    Set<UserProfile> usersThatIFollow;
+
+    @ManyToMany(mappedBy = "usersThatIFollow")
+    Set<UserProfile> usersThatFollowMe;
+
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public Set<UserProfile> getUsersThatIFollow() {
+        return usersThatIFollow;
+    }
+
+    public Set<UserProfile> getUsersThatFollowMe() {
+        return usersThatFollowMe;
+    }
+    public void addLike(UserProfile likee){
+        usersThatIFollow.add(likee);
     }
 
     public UserProfile(String username, String password, String firstName, String lastName, String bio){
@@ -51,7 +74,7 @@ public class UserProfile implements UserDetails {
     public String getBio() {
         return bio;
     }
-
+    public Long getId(){return id;}
     public void setBio(String bio) {
         this.bio = bio;
     }

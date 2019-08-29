@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="fragments/profilefragment :: nav"></div>
+    <div th:each="friend: ${following}">
+
+        <div th:each="post: ${friend.posts}">
+           <a th:href="${'/users/' + friend.id}"><h1 th:text="${friend.username}"></h1></a>
+            <div th:replace="fragments/profilefragment :: post(post=${post})"></div>
+        </div>
+
+    </div>
+</body>
+</html>

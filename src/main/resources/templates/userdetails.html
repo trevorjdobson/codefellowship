@@ -8,12 +8,15 @@
 <div th:replace="fragments/profilefragment :: nav"></div>
     <h1>User Details</h1>
     <h1>Username:</h1><span th:text="${userBeingViewed.username}"></span>
-<!--    <div th:replace="fragments/profilefragment :: profilefragment(user='${userBeingViewed}')"></div>-->
+    <div th:replace="fragments/profilefragment :: profilefragment(userProfile=${userBeingViewed},currentUser=${user})"></div>
 
 <!--    <div th:each="post: ${user.posts}" th:replace="fragments/profilefragment :: post(post=post)"></div>-->
-    <div th:each="post : ${userBeingViewed.posts}">
-        <h2 th:text="${post.timeStamp}"></h2>
-        <p th:text="${post.body}"></p>
-    </div>
+<div th:each="post: ${userBeingViewed.posts}">
+    <div th:replace="fragments/profilefragment :: post(post=${post})"></div>
+</div>
+<!--    <div th:each="post : ${userBeingViewed.posts}">-->
+<!--        <h2 th:text="${post.timeStamp}"></h2>-->
+<!--        <p th:text="${post.body}"></p>-->
+<!--    </div>-->
 </body>
 </html>
